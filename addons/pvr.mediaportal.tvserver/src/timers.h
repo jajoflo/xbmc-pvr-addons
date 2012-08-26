@@ -118,6 +118,7 @@ class cTimer
     time_t      m_canceled;            ///> MediaPortal canceled (date + time)
     //                                      skipped: recommendedCard
     bool        m_series;              ///> MediaPortal series
+    int         m_progid;              //Media Portal Program ID
     //                                      skipped: idParentSchedule: not yet supported in XBMC
 
     // XBMC asks for these fields:

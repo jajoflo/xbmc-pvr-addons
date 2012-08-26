@@ -100,8 +100,14 @@ cTimer::cTimer(const PVR_TIMER& timerinfo)
   m_priority = XBMC2MepoPriority(timerinfo.iPriority);
 
   SetKeepMethod(timerinfo.iLifetime);
-
-  if(timerinfo.bIsRepeating)
+  if(timerinfo.SeriesRule.bRecord)
+  {
+      if(timerinfo.SeriesRule.bOnThisChannelOnly)
+         m_schedtype=EveryTimeOnThisChannel;
+      else
+         m_schedtype=EveryTimeOnEveryChannel;
+  }
+  else if(timerinfo.bIsRepeating)
   {
     m_schedtype = RepeatFlags2SchedRecType(timerinfo.iWeekdays);
     m_series = true;
@@ -127,7 +133,7 @@ cTimer::~cTimer()
  */
 void cTimer::GetPVRtimerinfo(PVR_TIMER &tag)
 {
-  memset(&tag, 0, sizeof(tag));
+  if (m_progid != -1)
 
   if (m_progid != -1)
   {
@@ -140,33 +146,34 @@ void cTimer::GetPVRtimerinfo(PVR_TIMER &tag)
      tag.iEpgUid        = 0;
   }
   if (IsRecording())
-    tag.state           = PVR_TIMER_STATE_RECORDING;
+    tag.state = PVR_TIMER_STATE_RECORDING;
   else if (m_active)
     tag.state           = PVR_TIMER_STATE_SCHEDULED;
   else
-    tag.state           = PVR_TIMER_STATE_CANCELLED;
+    tag.state = PVR_TIMER_STATE_CANCELLED;
   tag.iClientChannelUid = m_channel;
   PVR_STRCPY(tag.strTitle, m_title.c_str());
   PVR_STRCPY(tag.strDirectory, m_directory.c_str());
-  tag.startTime         = m_starttime ;
-  tag.endTime           = m_endtime ;
+  tag.startTime = m_starttime ;
+  tag.endTime = m_endtime ;
   // From the VDR manual
   // firstday: The date of the first day when this timer shall start recording
-  //           (only available for repeating timers).
+  // (only available for repeating timers).
   if(Repeat())
   {
-    tag.firstDay        = m_starttime;
+    tag.firstDay = m_starttime;
   } else {
-    tag.firstDay        = 0;
+    tag.firstDay = 0;
   }
-  tag.iPriority         = Priority();
-  tag.iLifetime         = GetLifetime();
-  tag.bIsRepeating      = Repeat();
-  tag.iWeekdays         = RepeatFlags();
-  tag.iMarginStart      = m_prerecordinterval * 60;
-  tag.iMarginEnd        = m_postrecordinterval * 60;
-  tag.iGenreType        = 0;
-  tag.iGenreSubType     = 0;
+  tag.iPriority = Priority();
+  tag.iLifetime = GetLifetime();
+  tag.bIsRepeating = Repeat();
+  tag.iWeekdays = RepeatFlags();
+  tag.iMarginStart = m_prerecordinterval * 60;
+  tag.iMarginEnd = m_postrecordinterval * 60;
+  tag.iGenreType = 0;
+  tag.iGenreSubType = 0;
+  
 }
 
 time_t cTimer::StartTime(void) const
@@ -268,7 +275,7 @@ bool cTimer::ParseLine(const char *s)
       m_series = false;
       m_isrecording = false;
     }
-
+    if(schedulefields.size() >= 19)
     if(schedulefields.size() >= 19)
       m_progid = atoi(schedulefields[18].c_str());
     else

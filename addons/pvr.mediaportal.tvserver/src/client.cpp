@@ -450,6 +450,7 @@ PVR_ERROR GetAddonCapabilities(PVR_ADDON_CAPABILITIES *pCapabilities)
   pCapabilities->bSupportsChannelGroups      = true;
   pCapabilities->bHandlesInputStream         = true;
   pCapabilities->bHandlesDemuxing            = false;
+  pCapabilities->SupportsRecordingRules.bOnThisChannelOnly = true;
   pCapabilities->bSupportsChannelScan        = false;
   pCapabilities->bSupportsLastPlayedPosition = false;
 
