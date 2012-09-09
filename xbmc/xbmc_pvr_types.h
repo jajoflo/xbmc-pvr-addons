@@ -265,7 +265,6 @@ extern "C" {
     int             iGenreSubType;                             /*!< @brief (optional) genre sub type */
     PVR_TIMER_SERIES SeriesRule;                               /*!< @brief (optional) bitflag rules for recording series */
   } ATTRIBUTE_PACKED PVR_TIMER;
-
   /*!
    * @brief Representation of a recording.
    */
