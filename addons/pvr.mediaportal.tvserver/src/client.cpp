@@ -453,6 +453,8 @@ PVR_ERROR GetAddonCapabilities(PVR_ADDON_CAPABILITIES *pCapabilities)
   pCapabilities->SupportsRecordingRules.bOnThisChannelOnly = true;
   pCapabilities->bSupportsChannelScan        = false;
   pCapabilities->bSupportsLastPlayedPosition = false;
+  pCapabilities->SupportsRecordingRules.bRecord =true;
+  pCapabilities->SupportsRecordingRules.bOnThisChannelOnly =true;
 
   return PVR_ERROR_NO_ERROR;
 }
