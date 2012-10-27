@@ -1,10 +1,12 @@
 SUBDIRS = pvr.demo \
           pvr.hts \
           pvr.mediaportal.tvserver \
+          pvr.mythtv.cmyth \
           pvr.nextpvr \
           pvr.vdr.vnsi \
           pvr.njoy \
-          pvr.vuplus
+          pvr.vuplus \
+          pvr.fortherecord.argus
 
 clean:
 	-rm -f *.zip
