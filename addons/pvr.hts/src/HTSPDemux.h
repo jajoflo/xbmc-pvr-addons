@@ -50,6 +50,9 @@ protected:
   bool SendSpeed      (int subscription, int speed);
   DemuxPacket *ParseMuxPacket(htsmsg_t *m);
 
+  bool Connect(void);
+  bool CheckConnection(void);
+
 private:
   bool ParseQueueStatus(htsmsg_t* msg);
   bool ParseSignalStatus(htsmsg_t* msg);
@@ -68,4 +71,5 @@ private:
   SQueueStatus          m_QueueStatus;
   SQuality              m_Quality;
   SSourceInfo           m_SourceInfo;
+  std::map<int, unsigned int> m_StreamIndex;
 };
