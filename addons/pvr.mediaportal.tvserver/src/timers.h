@@ -77,7 +77,7 @@ class cTimer
     int PreRecordInterval(void) const { return m_prerecordinterval; }
     int PostRecordInterval(void) const { return m_postrecordinterval; }
     int RepeatFlags() { return SchedRecType2RepeatFlags(m_schedtype); };
-    bool Repeat() const { return (m_schedtype == Once ? false : true); };
+    bool Repeat() const { return (m_schedtype == Weekly || m_schedtype == Daily ? true : false); };
     bool Done() const { return m_done; };
     bool IsManual() const { return m_ismanual; };
     bool IsActive() const { return !m_canceled; };

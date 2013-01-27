@@ -181,7 +181,9 @@ void cTimer::GetPVRtimerinfo(PVR_TIMER &tag)
   if(Repeat())
   {
     tag.firstDay = m_starttime;
-  } else {
+  } 
+  else 
+  {
     tag.firstDay = 0;
   }
   tag.iPriority = Priority();

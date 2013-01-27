@@ -946,7 +946,7 @@ PVR_ERROR cPVRClientMediaPortal::GetRecordings(ADDON_HANDLE handle)
       tag.iGenreType     = recording.GenreType();
       tag.iGenreSubType  = recording.GenreSubType();
       tag.iPlayCount     = recording.TimesWatched();
-
+      
       strDirectory = recording.Directory();
       if (strDirectory.length() > 0)
       {
@@ -955,9 +955,7 @@ PVR_ERROR cPVRClientMediaPortal::GetRecordings(ADDON_HANDLE handle)
 
         if ((g_iTVServerXBMCBuild >= 105) && (strDirectory.Equals(tag.strTitle)) && (strEpisodeName.length() > 0))
         {
-          strEpisodeName = recording.Title();
-          strEpisodeName+= " - ";
-          strEpisodeName+= recording.EpisodeName();
+          strEpisodeName = recording.EpisodeName();
           PVR_STRCPY(tag.strTitle, strEpisodeName.c_str());
         }
       }
